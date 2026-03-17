@@ -1,0 +1,22 @@
+enum Gender {
+  Male
+  Female
+}
+
+enum Role {
+  user
+  admin
+  vendor
+}
+
+enum Status {
+  active
+  inactive
+  suspended
+}
+
+enum VendorRequestStatus {
+  pending
+  approved
+  rejected
+}

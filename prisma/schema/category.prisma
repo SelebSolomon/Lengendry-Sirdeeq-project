@@ -1,0 +1,17 @@
+model Category {
+  id            String     @id @default(uuid())
+  name          String     @unique
+  description   String?
+  slug          String     @unique
+  image         String?
+  imagePublicId String?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  // Self-relation
+  parentId      String?
+  parent        Category?  @relation("CategoryChildren", fields: [parentId], references: [id])
+  children      Category[] @relation("CategoryChildren")
+
+  products      Product[]
+}

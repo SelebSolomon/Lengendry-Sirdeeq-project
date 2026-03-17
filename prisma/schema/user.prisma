@@ -1,0 +1,21 @@
+model User {
+  id                   String         @id @default(uuid())
+  email                String         @unique
+  DOB                  DateTime
+  createdAt            DateTime       @default(now())
+  emailVerified        Boolean        @default(false)
+  gender               Gender
+  isActive             Boolean        @default(true)
+  lastLoginAt          DateTime?
+  password             String
+  passwordChangedAt    DateTime?
+  passwordResetExpires DateTime?
+  passwordResetToken   String?
+  phone                String?        @unique
+  phoneVerified        Boolean        @default(false)
+  role                 Role           @default(user)
+  status               Status         @default(active)
+  updatedAt            DateTime       @updatedAt
+  userName             String         @unique
+  vendorRequest        VendorRequest?
+}
