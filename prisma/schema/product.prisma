@@ -15,4 +15,7 @@ model Product {
   slug              String   @unique
   category          Category @relation(fields: [categoryId], references: [id])
   reviews           Review[]
+  orderItems        OrderItem[]
+
+  cartItems CartItem[]
 }

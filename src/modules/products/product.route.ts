@@ -25,13 +25,7 @@ router
     productController.postProduct,
   );
 
-// router
-//   .route("/getYearlySales/:year")
-//   .get(
-//     authMiddleware.protect,
-//     authMiddleware.restrictTo("admin"),
-//     productController.getYearlySales,
-//   );
+
 router
   .route("/:id")
   .get(validateParams(productIdSchema), productController.getOne)

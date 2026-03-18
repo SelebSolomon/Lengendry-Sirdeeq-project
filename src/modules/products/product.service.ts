@@ -2,7 +2,6 @@ import { ParsedQs } from "qs";
 import { prisma } from "../../lib/prisma.js";
 import { APIFeatures } from "../../utils/api-features.util.js";
 import { ProductDto } from "./dto/product.dto.js";
-import AppError from "../../utils/app-error.js";
 
 export const getAllProducts = async (query: ParsedQs) => {
   const features = new APIFeatures(query)

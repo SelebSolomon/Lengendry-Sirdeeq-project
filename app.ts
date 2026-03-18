@@ -14,6 +14,8 @@ import userRouter from "./src/modules/user/user.route.js";
 import vendorRequestRouter from "./src/modules/vendor-request/vendor-request.route.js";
 import productRouter from "./src/modules/products/product.route.js";
 import categoryRouter from "./src/modules/categories/category.route.js";
+import orderRouter from "./src/modules/orders/order.route.js"
+import cartRouter from "./src/modules/cart/cart.route.js"
 
 const app = express();
 
@@ -39,6 +41,8 @@ app.use("/api/users", userRouter);
 app.use("/api/vendor-requests", vendorRequestRouter);
 app.use("/api/products", productRouter);
 app.use("/api/categories", categoryRouter);
+app.use("/api/orders", orderRouter)
+app.use("/api/carts", cartRouter)
 
 // 404 handler
 app.all(/.*/, (req: Request, _res: Response, next: NextFunction) => {

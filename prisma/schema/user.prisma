@@ -18,4 +18,8 @@ model User {
   updatedAt            DateTime       @updatedAt
   userName             String         @unique
   vendorRequest        VendorRequest?
+
+  orders Order[]
+
+  carts Cart[]
 }
