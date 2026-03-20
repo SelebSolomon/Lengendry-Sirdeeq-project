@@ -17,6 +17,7 @@ const safeUserSelect = {
   createdAt: true,
 };
 
+
 export const hashPassword = (password: string) => bcrypt.hash(password, 12);
 
 export const comparePassword = (plain: string, hashed: string) =>
@@ -37,8 +38,20 @@ export const register = async (data: RegisterDto) => {
 
   const hashedPassword = await hashPassword(data.password);
 
+  // Generate email verification token
+  const verificationToken = crypto.randomBytes(32).toString("hex");
+  const hashedVerificationToken = crypto
+    .createHash("sha256")
+    .update(verificationToken)
+    .digest("hex");
+
   const user = await prisma.user.create({
-    data: { ...data, password: hashedPassword },
+    data: {
+      ...data,
+      password: hashedPassword,
+      emailVerificationToken: hashedVerificationToken,
+      emailVerificationExpires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
+    },
   });
 
   const result = {
@@ -47,8 +60,9 @@ export const register = async (data: RegisterDto) => {
     email: user.email,
     phone: user.phone,
     role: user.role,
-    emailVerifed: false,
+    emailVerified: false,
     createdAt: user.createdAt,
+    verificationToken, // raw token — sent in email, never stored
   };
   return result;
 };

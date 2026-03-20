@@ -2,6 +2,7 @@ import { ParsedQs } from "qs";
 import { prisma } from "../../lib/prisma.js";
 import { APIFeatures } from "../../utils/api-features.util.js";
 import { ProductDto } from "./dto/product.dto.js";
+import { productResponse } from "./response/product.response.js";
 
 export const getAllProducts = async (query: ParsedQs) => {
   const features = new APIFeatures(query)
@@ -30,17 +31,17 @@ export const postProduct = async (dto: ProductDto) => {
 
   const product = await prisma.product.create({
     data: { ...dto, slug },
+    select: productResponse,
   });
 
   return product;
 };
 
 export const getOne = async (id: string) => {
-  const product = await prisma.product.findUnique({
+  return prisma.product.findUnique({
     where: { id },
-    include: { reviews: true },
+    select: { ...productResponse, reviews: true },
   });
-  return product;
 };
 
 export const updateProduct = async (id: string, data: Partial<ProductDto>) => {
@@ -50,13 +51,11 @@ export const updateProduct = async (id: string, data: Partial<ProductDto>) => {
     updateData.slug = data.name.toLowerCase().replace(/\s+/g, "-");
   }
 
-  const product = await prisma.product.update({
+  return prisma.product.update({
     where: { id },
     data: updateData,
-    include: { reviews: true },
+    select: { ...productResponse, reviews: true },
   });
-
-  return product;
 };
 
 export const deleteProduct = async (id: string) => {

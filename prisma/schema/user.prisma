@@ -9,8 +9,10 @@ model User {
   lastLoginAt          DateTime?
   password             String
   passwordChangedAt    DateTime?
-  passwordResetExpires DateTime?
-  passwordResetToken   String?
+  passwordResetExpires      DateTime?
+  passwordResetToken        String?
+  emailVerificationToken    String?
+  emailVerificationExpires  DateTime?
   phone                String?        @unique
   phoneVerified        Boolean        @default(false)
   role                 Role           @default(user)
@@ -19,7 +21,9 @@ model User {
   userName             String         @unique
   vendorRequest        VendorRequest?
 
-  orders Order[]
+  orders   Order[]
+  carts    Cart[]
+  payments Payment[]
 
-  carts Cart[]
+  reviews Review[]
 }

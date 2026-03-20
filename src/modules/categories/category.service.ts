@@ -1,15 +1,6 @@
 import { prisma } from "../../lib/prisma.js";
 import { CategoryDto } from "./dto/category.dto.js";
-
-const categoryResponse = {
-  id: true,
-  name: true,
-  description: true,
-  slug: true,
-  image: true,
-  parentId: true,
-  createdAt: true,
-};
+import { categoryResponse } from "./response/category.response.js";
 export const createCategory = async (dto: CategoryDto) => {
   if (dto.parentId) {
     const parent = await prisma.category.findUnique({

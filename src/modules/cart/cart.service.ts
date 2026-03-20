@@ -1,18 +1,8 @@
 import { prisma } from "../../lib/prisma.js";
 import { AddToCartDto, UpdateCartDto } from "./dto/cart.dto.js";
+import { cartResponse } from "./response/cart.response.js";
 
-const cartWithItems = {
-  id: true,
-  totalPrice: true,
-  items: {
-    select: {
-      id: true,
-      productId: true,
-      quantity: true,
-      priceSnapshot: true,
-    },
-  },
-};
+const cartWithItems = cartResponse;
 
 const recalculateTotal = async (cartId: string) => {
   const items = await prisma.cartItem.findMany({ where: { cartId } });
